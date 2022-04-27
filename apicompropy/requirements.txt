@@ -1,0 +1,6 @@
+Pillow
+django
+djangorestframework
+djoser
+django-taggit
+django-widget-tweaks

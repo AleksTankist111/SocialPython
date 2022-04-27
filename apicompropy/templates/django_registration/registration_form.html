@@ -1,0 +1,77 @@
+{% extends "auth_layout.html" %}
+{% load widget_tweaks %}
+
+{% block content %}
+<h3 class="text-light mt-3 mb-4">Создайте ваш аккаунт!</h3>
+<div class="form-container">
+  <form method="POST">
+    {% csrf_token %}
+
+    <!-- https://getbootstrap.com/docs/5.1/forms/floating-labels/#example -->
+    <!-- https://github.com/jazzband/django-widget-tweaks -->
+
+    <div class="form-floating mb-3">
+      {% render_field form.username class="form-control" id="floatingUsername" placeholder="Логин" %}
+      <label for="floatingUsername">Логин</label>
+      {% if form.username.errors %}
+        <div class="text-danger mt-2">
+          {% for error in form.username.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="form-floating mb-3">
+      {% render_field form.email class="form-control" id="floatingEmail" placeholder="Email" %}
+      <label for="floatingEmail">Email</label>
+      {% if form.email.errors %}
+        <div class="text-danger mt-2">
+          {% for error in form.email.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="form-floating mb-3">
+      {% render_field form.password1 class="form-control" id="floatingPassword1" placeholder="Пароль" %}
+      <label for="floatingPassword1">Пароль</label>
+      {% if form.password1.errors %}
+        <div class="text-danger mt-2">
+          {% for error in form.password2.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    <div class="form-floating mb-3">
+      {% render_field form.password2 class="form-control" id="floatingPassword2" placeholder="Повторите пароль" %}
+      <label for="floatingPassword2">Повторите пароль</label>
+      {% if form.password2.errors %}
+        <div class="text-danger my-2">
+          {% for error in form.password2.errors %}
+            {{ error }}
+          {% endfor %}
+        </div>
+      {% endif %}
+    </div>
+
+    {% if form.errors %}
+      <div class="text-danger my-2">
+        {% for error in form.non_field_errors %}
+            {{ error }}
+        {% endfor %}
+      </div>
+    {% endif %}
+
+    <div class="d-grid gap-2">
+      <button type="submit" class="btn btn-lg btn-primary">Создать Аккаунт</button>
+    </div>
+  </form>
+  <p class="text-light mt-4">
+    Или <a href="{% url 'login' %}" class="auth-link">Войти</a>
+  </p>
+</div>
+{% endblock %}
