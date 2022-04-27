@@ -46,7 +46,7 @@ reconsider soon.
       
          python manage.py runserver
 
-5. Go to the folder "frontend" and install needed packages:
+5. Open new terminal and go to the folder "frontend" and install needed packages:
       
          cd ../frontend
          npm install package.json --save
