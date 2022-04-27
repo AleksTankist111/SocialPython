@@ -1,6 +1,8 @@
 Pillow
 django
 djangorestframework
+django-registration
 djoser
 django-taggit
 django-widget-tweaks
+transliterate
