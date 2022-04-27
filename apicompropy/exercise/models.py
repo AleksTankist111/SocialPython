@@ -12,21 +12,23 @@ from django.template.defaultfilters import slugify as slg
 
 import exercise.garbage_collector as gc
 from apicompropy.settings import SUCCESS_STATUS
-
 EXERCISES_DIR = 'exercises'
 
 
 class User(AbstractUser):
     def get_avatar_path(self, filename):
-        return os.path.join(
-            'user_avatars',
-            str(self.username),
-            filename)
+        if filename:
+            return os.path.join(
+                'user_avatars',
+                str(self.username),
+                filename)
+        else:
+            return os.path.join('user_avatars', 'img_avatar.png')
     town = models.CharField(max_length=255, verbose_name='Город', blank=True)
     rating = models.IntegerField(default=0, verbose_name='Рейтинг')
     about = models.TextField(blank=True, verbose_name='Описание')
     skills = models.TextField(blank=True, verbose_name='Скилл-стек')
-    avatar = models.ImageField(upload_to=get_avatar_path, blank=True, verbose_name='Аватар')
+    avatar = models.ImageField(upload_to=get_avatar_path, blank=True, verbose_name='Аватар', default=os.path.join('user_avatars', 'img_avatar.png'))
     email = models.EmailField(blank=False, null=False, unique=True, verbose_name='Email')
     last_online = models.DateTimeField(blank=True, null=True)
 

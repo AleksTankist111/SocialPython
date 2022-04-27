@@ -89,10 +89,20 @@ export default {
     async updateUserData() {
       const endpoint = `/api/v1/users/${this.currentUser.id}/`
           try {
-            await axios.put(endpoint, {})
+            await axios.put(endpoint, {
+              first_name: this.currentUser.first_name,
+              last_name: this.currentUser.last_name,
+              username: this.currentUser.username,
+              email: this.currentUser.email,
+              town: this.currentUser.town,
+            })
           } catch (error) {
             console.log(error)
           }
+          finally {
+            this.$router.push({name: "user-page", params: {userId: this.currentUser.id }})
+          }
+
     },
     changeAvatar(e) {
       e.preventDefault();
@@ -118,7 +128,12 @@ export default {
         let pathname = this.currentUser.avatar
         const y = pathname.split('/')
         y.shift()
-        return require(`../../../uploads/user_avatars/${y[2]}/${y[3]}`)
+        if (y.length === 4) {
+          return require(`../../../uploads/user_avatars/${y[2]}/${y[3]}`)
+        }
+        else {
+          return require(`../../../uploads/user_avatars/${y[2]}`)
+        }
       }
       return '#'
     }
